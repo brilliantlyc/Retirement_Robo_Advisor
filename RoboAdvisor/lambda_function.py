@@ -12,6 +12,15 @@ def parse_int(n):
     except ValueError:
         return float("nan")
 
+### Functionality Helper Functions ###
+def parse_float(n):
+    """
+    Securely converts a non-numeric value to float.
+    """
+    try:
+        return float(n)
+    except ValueError:
+        return float("nan")
 
 def build_validation_result(is_valid, violated_slot, message_content):
     """
@@ -32,17 +41,19 @@ def validate_data(age, investment_amount, intent_request):
     """
 
     # Validate that the user's age is greater than zero and less than 65
-    if age < 0 or age >= 65:
-        return build_validation_result(
-            False,
-            "age",
-            "Your age should be greater than zero and less than 65 to use this service, "
-            "please provide a different age.",
-        )
+    if age is not None:
+        age = parse_int(age)
+        if age < 0 or age >= 65:
+            return build_validation_result(
+                False,
+                "age",
+                "Your age should be greater than zero and less than 65 to use this service, "
+                "please provide a different age.",
+            )
 
     # Validate the investment amount, it should be >= 5000
     if investment_amount is not None:
-        investment_amount = parse_int(
+        investment_amount = parse_float(
             investment_amount
         )  # Since parameters are strings it's important to cast values
         if investment_amount < 5000:
