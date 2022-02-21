@@ -135,17 +135,18 @@ def investment_recommendation(risk_level):
     """
     Returns an investment recommendation based on the risk level.
     """
-    if risk_level == "none":
+    
+    if risk_level == "None":
         recommendation = "100% bonds (AGG), 0% equities (SPY)"
-    elif risk_level == "very low":
+    elif risk_level == "Very Low":
         recommendation = "80% bonds (AGG), 20% equities (SPY)"
-    elif risk_level == "low":
+    elif risk_level == "Low":
         recommendation = "60% bonds (AGG), 40% equities (SPY)"
-    elif risk_level == "medium":
+    elif risk_level == "Medium":
         recommendation = "40% bonds (AGG), 60% equities (SPY)"
-    elif risk_level == "high":
+    elif risk_level == "High":
         recommendation = "20% bonds (AGG), 80% equities (SPY)"
-    elif risk_level == "very high":
+    elif risk_level == "Very High":
         recommendation = "0% bonds (AGG), 100% equities (SPY)"
 
     return recommendation
