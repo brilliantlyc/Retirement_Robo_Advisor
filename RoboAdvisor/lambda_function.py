@@ -131,6 +131,26 @@ def close(session_attributes, fulfillment_state, message):
     return response
 
 
+def investment_recommendation(risk_level):
+    """
+    Returns an investment recommendation based on the risk level.
+    """
+    if risk_level == "none":
+        recommendation = "100% bonds (AGG), 0% equities (SPY)"
+    elif risk_level == "very low":
+        recommendation = "80% bonds (AGG), 20% equities (SPY)"
+    elif risk_level == "low":
+        recommendation = "60% bonds (AGG), 40% equities (SPY)"
+    elif risk_level == "medium":
+        recommendation = "40% bonds (AGG), 60% equities (SPY)"
+    elif risk_level == "high":
+        recommendation = "20% bonds (AGG), 80% equities (SPY)"
+    elif risk_level == "very high":
+        recommendation = "0% bonds (AGG), 100% equities (SPY)"
+
+    return recommendation
+
+
 ### Intents Handlers ###
 def recommend_portfolio(intent_request):
     """
@@ -174,19 +194,7 @@ def recommend_portfolio(intent_request):
         return delegate(output_session_attributes, get_slots(intent_request))
 
     # Get the initial investment recommendation
-    
-    if risk_level == "none":
-        initial_recommendation = "100% bonds (AGG), 0% equities (SPY)"
-    elif risk_level == "very low":
-        initial_recommendation = "80% bonds (AGG), 20% equities (SPY)"
-    elif risk_level == "low":
-        initial_recommendation = "60% bonds (AGG), 40% equities (SPY)"
-    elif risk_level == "medium":
-        initial_recommendation = "40% bonds (AGG), 60% equities (SPY)"
-    elif risk_level == "high":
-        initial_recommendation = "20% bonds (AGG), 80% equities (SPY)"
-    elif risk_level == "very high":
-        initial_recommendation = "0% bonds (AGG), 100% equities (SPY)"
+    initial_recommendation = investment_recommendation(risk_level)
 
     # Return a message with the initial recommendation based on the risk level.
     return close(
