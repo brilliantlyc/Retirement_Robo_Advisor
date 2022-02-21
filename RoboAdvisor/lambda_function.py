@@ -12,6 +12,7 @@ def parse_int(n):
     except ValueError:
         return float("nan")
 
+
 ### Functionality Helper Functions ###
 def parse_float(n):
     """
@@ -21,6 +22,7 @@ def parse_float(n):
         return float(n)
     except ValueError:
         return float("nan")
+
 
 def build_validation_result(is_valid, violated_slot, message_content):
     """
@@ -35,6 +37,7 @@ def build_validation_result(is_valid, violated_slot, message_content):
         "message": {"contentType": "PlainText", "content": message_content},
     }
 
+
 def validate_data(age, investment_amount, intent_request):
     """
     Validates the data provided by the user.
@@ -43,12 +46,19 @@ def validate_data(age, investment_amount, intent_request):
     # Validate that the user's age is greater than zero and less than 65
     if age is not None:
         age = parse_int(age)
-        if age < 0 or age >= 65:
+        if age < 0:
             return build_validation_result(
                 False,
                 "age",
-                "Your age should be greater than zero and less than 65 to use this service, "
-                "please provide a different age.",
+                "This is an invalid age. The minimum age to contract this service is 0, "
+                "can you provide an age between 0 and 64 please?",
+            )
+        elif  age >= 65:
+            return build_validation_result(
+                False,
+                "age",
+                "The maximum age to contract this service is 64, "
+                "can you provide an age between 0 and 64 please?",
             )
 
     # Validate the investment amount, it should be >= 5000
@@ -60,8 +70,8 @@ def validate_data(age, investment_amount, intent_request):
             return build_validation_result(
                 False,
                 "investmentAmount",
-                "The amount to invest should be equal to or greater than 5000, "
-                "please provide a correct amount in dollars to invest.",
+                "The minimum investment amount is $5,000 CAD, "
+                "could you please provide a greater amount?",
             )
 
     # A True results is returned if age or investment amount are valid
@@ -138,8 +148,6 @@ def recommend_portfolio(intent_request):
         # Use the elicitSlot dialog action to re-prompt
         # for the first violation detected.
 
-        ### YOUR DATA VALIDATION CODE STARTS HERE ###
-
         # Gets all the slots
         slots = get_slots(intent_request)
         # Validate user's input using the validate_data function
@@ -165,15 +173,20 @@ def recommend_portfolio(intent_request):
         # Once all slots are valid, a delegate dialog is returned to Lex to choose the next course of action.
         return delegate(output_session_attributes, get_slots(intent_request))
 
-        ### YOUR DATA VALIDATION CODE ENDS HERE ###
-
     # Get the initial investment recommendation
-
-    ### YOUR FINAL INVESTMENT RECOMMENDATION CODE STARTS HERE ###
     
-
-
-    ### YOUR FINAL INVESTMENT RECOMMENDATION CODE ENDS HERE ###
+    if risk_level == "none":
+        initial_recommendation = "100% bonds (AGG), 0% equities (SPY)"
+    elif risk_level == "very low":
+        initial_recommendation = "80% bonds (AGG), 20% equities (SPY)"
+    elif risk_level == "low":
+        initial_recommendation = "60% bonds (AGG), 40% equities (SPY)"
+    elif risk_level == "medium":
+        initial_recommendation = "40% bonds (AGG), 60% equities (SPY)"
+    elif risk_level == "high":
+        initial_recommendation = "20% bonds (AGG), 80% equities (SPY)"
+    elif risk_level == "very high":
+        initial_recommendation = "0% bonds (AGG), 100% equities (SPY)"
 
     # Return a message with the initial recommendation based on the risk level.
     return close(
