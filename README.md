@@ -86,5 +86,5 @@ Following are the screenshots of investment portfolio recommendations for two ri
 
 ## Robo Advisor Demo:
 
-RoboAdvisor/RoboAdvisorDemo.mp4
+https://github.com/brilliantlyc/unit13-challenge/blob/main/RoboAdvisor/RoboAdvisorDemo.mp4
 
