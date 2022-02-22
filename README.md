@@ -1,6 +1,6 @@
 # Robo Advisor for Retirement Plans
 
-This project involved the creation of a robo advisor (bot) that recommends to customers or potential new customers, an investment portfolio for a retirement plan. Amazon Web Services (AWS), and Python were used to create the bot. The robo advisor was configured using an Amazon Lex bot that generated a conversation to obtain the required information and thus suggest the retirement investment portfolio. The bot was then built and tested in Lex. Lastly, an Amazon Lambda function was created to validate the input data and return the investment portfolio recommendation. The Amazon Lambda function was tested and integrated with the bot. In addition, Amazon S3 was used to create a bucket to hold the icons that are displayed in the bot's investment risk level response cards.
+This project involved the creation of a robo advisor (bot) that recommends to customers or potential new customers, an investment portfolio for a retirement plan. Amazon Web Services (AWS), and Python were used to create the bot. The robo advisor was configured using an Amazon Lex bot that generated a conversation to obtain the required information and thus suggest the retirement investment portfolio. The bot was then built and tested in Lex. Lastly, an Amazon Lambda function was created to validate the input data and return the investment portfolio recommendation. The Amazon Lambda function was tested and integrated with the bot. In addition, Amazon S3 was used to create a bucket to hold the icons that were displayed in the bot's investment risk level response cards.
 
 
 ## Utterances
@@ -23,7 +23,7 @@ Many utterances were added to the bot, which the user could type to begin a conv
 
 ## Age Validation
 
-The robo advisor requirements included age restrictions. These were, that the age input by the user had to be greater than zero and less than 65. In other words, a valid age range was between 0-64 years old inclusive. Following are screenshots of the messages that were returned when invalid ages were entered.
+The robo advisor requirements included age restrictions. These were, that the age input by the user had to be non-negative and less than 65. In other words, a valid age range was between 0-64 years old inclusive. Following are screenshots of the messages that were returned when invalid ages were entered.
 
 **Age less than zero:**
 
@@ -65,7 +65,7 @@ Once a sufficient investment amount was entered, the user was asked to select th
 
 ## Investment Portfolio Recommendation
 
-Lastly, the user was presented with an investment portfolio recommendation based on the investment risk level they selected. These are the recommendations for each risk level:
+Lastly, the user was presented with an investment portfolio recommendation based on the investment risk level that they had selected. These are the recommendations for each risk level:
 
 * **None:** "100% bonds (AGG), 0% equities (SPY)"
 * **Very Low:** "80% bonds (AGG), 20% equities (SPY)"
